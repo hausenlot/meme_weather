@@ -1,0 +1,29 @@
+<div data-controller="map" data-map-latitude="<%= @latitude %>" data-map-longitude="<%= @longitude %>">
+  <div data-map-target="map" id="map" style="height: 500px; width: 100%;"></div>
+  
+  <%= form_with url: weather_update_coordinates_path, method: :post, local: true do |form| %>
+    <%= form.hidden_field :latitude, id: 'latitude' %>
+    <%= form.hidden_field :longitude, id: 'longitude' %>
+    <%= form.submit 'Update Coordinates', id: 'update-coordinates-btn' %>
+  <% end %>
+  
+  <p id="coordinates"><%=@latitude.nil? ? "" : "Latitude: #{@latitude}, Longitude: #{@longitude}"%></p>
+</div>
+
+<h1>Current Weather</h1>
+
+<div data-controller="weather" data-weather-code-value="<%= @weather_code %>">
+  <% if @weather %>
+    <p>Temperature: <%= @weather["current_weather"]["temperature"] %> °C</p>
+    <p>Wind Speed: <%= @weather["current_weather"]["windspeed"] %> km/h</p>
+    <p>Weather Code: <%= @weather["current_weather"]["weathercode"] %></p>
+  <% else %>
+    <p>Unable to retrieve weather data.</p>
+  <% end %>
+  <div class="relative w-full" data-controller="video">
+    <%= video_tag 'test.webm', id: 'myVideo', autoplay: true, loop: true, playsinline: true, muted: true do %>
+      Your browser does not support the video tag.
+    <% end %>
+    <button id="playButton" style="display: none;">Unmute Video</button> <!-- Initially hidden -->
+  </div>
+</div>
