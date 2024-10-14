@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+#map-wrapper {
+  height: 0; 
+  overflow: hidden; 
+  transition: height 0.3s ease;
+}

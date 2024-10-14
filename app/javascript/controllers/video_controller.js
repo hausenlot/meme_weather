@@ -14,7 +14,7 @@ export default class extends Controller {
     // Add event listener to unmute the video on button click
     this.playButton.addEventListener('click', () => {
       this.video.muted = false; // Unmute the video
-      this.playButton.style.display = 'none'; // Hide the button after unmuting
+      // this.playButton.style.display = 'none'; // Hide the button after unmuting
       this.video.play(); // Play the video if not already playing
     });
   }

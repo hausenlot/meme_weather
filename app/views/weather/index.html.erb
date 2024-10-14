@@ -1,29 +1,42 @@
-<div data-controller="map" data-map-latitude="<%= @latitude %>" data-map-longitude="<%= @longitude %>">
-  <div data-map-target="map" id="map" style="height: 500px; width: 100%;"></div>
-  
-  <%= form_with url: weather_update_coordinates_path, method: :post, local: true do |form| %>
-    <%= form.hidden_field :latitude, id: 'latitude' %>
-    <%= form.hidden_field :longitude, id: 'longitude' %>
-    <%= form.submit 'Update Coordinates', id: 'update-coordinates-btn' %>
-  <% end %>
-  
-  <p id="coordinates"><%=@latitude.nil? ? "" : "Latitude: #{@latitude}, Longitude: #{@longitude}"%></p>
-</div>
+<div data-controller="map" data-map-latitude="<%= @latitude %>" data-map-longitude="<%= @longitude %>" class="relative">
+  <!-- Map Wrapper -->
+  <div id="map-wrapper" style="height: 0; overflow: hidden; transition: height 0.3s ease;">
+    <div data-map-target="map" id="map" style="height: 500px; width: 100%;"></div>
+  </div>
 
-<h1>Current Weather</h1>
+  <div data-controller="weather" data-weather-code-value="<%= @weather_code %>"id="toggle-map-btn" class="text-white">
+    <div class="relative w-full" data-controller="video">
+      <%= video_tag 'test.webm', id: 'myVideo', autoplay: true, loop: true, playsinline: true, muted: true, class: "w-full max-h-screen" do %>
+        Your browser does not support the video tag.
+      <% end %>
 
-<div data-controller="weather" data-weather-code-value="<%= @weather_code %>">
-  <% if @weather %>
-    <p>Temperature: <%= @weather["current_weather"]["temperature"] %> °C</p>
-    <p>Wind Speed: <%= @weather["current_weather"]["windspeed"] %> km/h</p>
-    <p>Weather Code: <%= @weather["current_weather"]["weathercode"] %></p>
-  <% else %>
-    <p>Unable to retrieve weather data.</p>
-  <% end %>
-  <div class="relative w-full" data-controller="video">
-    <%= video_tag 'test.webm', id: 'myVideo', autoplay: true, loop: true, playsinline: true, muted: true do %>
-      Your browser does not support the video tag.
-    <% end %>
-    <button id="playButton" style="display: none;">Unmute Video</button> <!-- Initially hidden -->
+      <!-- Weather Information Overlay -->
+      <div class="absolute top-0 left-0 w-full z-10 bg-black bg-opacity-50 p-4">
+        <% if @weather %>
+          <p class="text-white"><%= @city %>, <%= @country %></p>
+          <p class="text-white">Temperature: <%= @weather["current_weather"]["temperature"] %> °C</p>
+          <p class="text-white">Wind Speed: <%= @weather["current_weather"]["windspeed"] %> km/h</p>
+          <p class="text-white">Weather Code: <%= @weather["current_weather"]["weathercode"] %></p>
+        <% else %>
+          <p class="text-white">Unable to retrieve weather data.</p>
+        <% end %>
+      </div>
+      
+      <!-- Elements positioned at the right of the video -->
+      <div class="absolute top-0 right-0 w-1/3 z-20 bg-black bg-opacity-50 p-4"> <!-- Adjust as needed -->
+        <!-- Toggle Button -->
+        <button data-controller="map-toggle" data-action="click->map-toggle#toggleMap">NEW show map</button>
+
+        <!-- Weather Update Form -->
+        <%= form_with url: weather_update_coordinates_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :latitude, id: 'latitude' %>
+          <%= form.hidden_field :longitude, id: 'longitude' %>
+          <%= form.submit 'Update Coordinates', id: 'update-coordinates-btn', class: "text-white" %>
+        <% end %>
+
+        <!-- City and Country Display -->
+        <button id="playButton" style="display: none;" class="text-white">Unmute Video</button>
+      </div>
+    </div>
   </div>
 </div>

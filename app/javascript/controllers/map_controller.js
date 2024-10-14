@@ -14,7 +14,7 @@ export default class extends Controller {
     } else {
       this.getCurrentLocation();
       console.log("getting current location and initializing map");
-    }
+   }
   }
 
   getCurrentLocation() {
@@ -25,7 +25,7 @@ export default class extends Controller {
         console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
         
         this.initializeMap(latitude, longitude)
-        this.updateCoordinatesDisplay(latitude, longitude);
+        // this.updateCoordinatesDisplay(latitude, longitude);
         document.getElementById('latitude').value = latitude;
         document.getElementById('longitude').value = longitude;
         document.querySelector('form').submit();
@@ -62,8 +62,8 @@ export default class extends Controller {
   }
 
   updateCoordinatesDisplay(markerPosition) {
-    const coordinatesDisplay = document.getElementById("coordinates");
-    coordinatesDisplay.innerText = `Latitude: ${markerPosition.lat}, Longitude: ${markerPosition.lng}`;
+    // const coordinatesDisplay = document.getElementById("coordinates");
+    // coordinatesDisplay.innerText = `Latitude: ${markerPosition.lat}, Longitude: ${markerPosition.lng}`;
     document.getElementById('latitude').value = markerPosition.lat;
     document.getElementById('longitude').value = markerPosition.lng;
   }

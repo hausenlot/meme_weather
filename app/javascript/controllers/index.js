@@ -10,6 +10,9 @@ application.register("hello", HelloController)
 import MapController from "./map_controller"
 application.register("map", MapController)
 
+import MapToggleController from "./map_toggle_controller"
+application.register("map-toggle", MapToggleController)
+
 import VideoController from "./video_controller"
 application.register("video", VideoController)
 
