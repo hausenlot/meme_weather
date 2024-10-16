@@ -13,6 +13,9 @@ application.register("map", MapController)
 import MapToggleController from "./map_toggle_controller"
 application.register("map-toggle", MapToggleController)
 
+import ScrollController from "./scroll_controller"
+application.register("scroll", ScrollController)
+
 import VideoController from "./video_controller"
 application.register("video", VideoController)
 

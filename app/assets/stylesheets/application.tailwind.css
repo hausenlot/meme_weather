@@ -8,3 +8,27 @@
   overflow: hidden; 
   transition: height 0.3s ease;
 }
+
+/* Hide the scrollbar 
+.forecast-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.forecast-scroll::-webkit-scrollbar {
+  display: none;
+}*/
+
+.weather-cards-container {
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.weather-cards-container::-webkit-scrollbar {
+  display: none;
+}
+
+.weather-card.highlight {
+  background-color: yellow;
+  color: black;
+}

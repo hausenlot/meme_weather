@@ -1,0 +1,13 @@
+<div class="weather-card <%= 'highlight' if highlight_condition %> bg-white bg-opacity-75 p-4 rounded shadow text-black">
+  <p><strong>Time:</strong> <%= forecast[:time] %></p>
+  <% if session[:mode] == 'daily' %>
+    <p><strong>Max Temperature:</strong> <%= forecast[:temperature_2m_max] %> °C</p>
+    <p><strong>Min Temperature:</strong> <%= forecast[:temperature_2m_min] %> °C</p>
+    <p><strong>Weather:</strong> <%= weather_description(forecast[:weather_code]) %></p>
+    <p><strong>Precipitation Probability:</strong> <%= forecast[:precipitation_probability_max] %> %</p>
+  <% else %>
+    <p><strong>Temperature:</strong> <%= forecast[:temperature] %> °C</p>
+    <p><strong>Weather:</strong> <%= weather_description(forecast[:weather_code]) %></p>
+    <p><strong>Precipitation:</strong> <%= forecast[:precipitation_probability] %> %</p>
+  <% end %>
+</div>

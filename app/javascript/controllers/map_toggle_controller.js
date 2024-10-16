@@ -7,14 +7,14 @@ export default class extends Controller {
   }
 
   toggleMap() {
-    const toggleBtn = document.getElementById('toggle-map-btn');
+    const toggleBtn = document.getElementById('toggle-btn');
 
     if (this.mapWrapper.style.height === "500px") {
       this.mapWrapper.style.height = "0";
-      // toggleBtn.textContent = "Show Map";
+      toggleBtn.innerHTML  = "Show Map";
     } else {
       this.mapWrapper.style.height = "500px";
-      // toggleBtn.textContent = "Hide Map";
+      toggleBtn.innerHTML  = "Hide Map";
     }
   }
 }
