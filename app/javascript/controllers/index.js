@@ -16,6 +16,9 @@ application.register("map-toggle", MapToggleController)
 import ScrollController from "./scroll_controller"
 application.register("scroll", ScrollController)
 
+import SvgAnimatorController from "./svg_animator_controller"
+application.register("svg-animator", SvgAnimatorController)
+
 import VideoController from "./video_controller"
 application.register("video", VideoController)
 

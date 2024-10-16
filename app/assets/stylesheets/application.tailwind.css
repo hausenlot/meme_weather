@@ -2,22 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
 #map-wrapper {
   height: 0; 
   overflow: hidden; 
   transition: height 0.3s ease;
 }
-
-/* Hide the scrollbar 
-.forecast-scroll {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.forecast-scroll::-webkit-scrollbar {
-  display: none;
-}*/
 
 .weather-cards-container {
   overflow-x: scroll;
@@ -32,3 +21,21 @@
   background-color: yellow;
   color: black;
 }
+
+@keyframes moveLeftToRight {
+  0% {
+    transform: translateX(-100vw); /* Start off the screen on the left */
+  }
+  100% {
+    transform: translateX(100vw); /* Move off the screen on the right */
+  }
+}
+
+.animate-move {
+  position: absolute;
+  animation: moveLeftToRight linear infinite;
+}
+
+
+
+

@@ -4,9 +4,25 @@
     <div data-map-target="map" id="map" style="height: 500px; width: 100%;"></div>
   </div>
 
-  <div data-controller="weather" data-weather-code-value="<%= @weather_code %>"id="toggle-map-btn" class="text-white">
-    <div class="relative w-full" data-controller="video">
-      <%= video_tag 'test.webm', id: 'myVideo', autoplay: true, loop: true, playsinline: true, muted: true, class: "w-full max-h-screen" do %>
+  <div data-controller="weather" data-weather-code-value="<%= @weather_code %>"id="toggle-map-btn" class="text-white max-h-screen overflow-hidden">
+    <%# <div class="relative w-full" data-controller="video"> %>
+    <div class="relative max-w-screen max-h-screen flex items-center justify-center" data-controller="video svg-animator">
+
+      <%# <div id="layer_2" class="z-0 animate-move">
+        <svg width="300" height="300" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M51.8038 58.2347C52.2128 58.2547 52.1121 58.2882 52.5 58.2996C52.1322 58.2306 52.227 58.1969 51.8038 58.2347ZM51.8038 58.2347C40.2615 57.6709 20.8643 53.4833 25.5 33.7815C30.3 13.3815 48.5 10.9482 57 12.2815C61.6083 13.1044 70.3771 17.6654 69.0551 29.3346M51.8038 58.2347C49.1586 58.4712 45.8103 60.7988 46.5 65.2815C46.8333 66.1149 48 67.7815 50 67.7815L3.5 73.7815L59 71.7815L52 73.7815H118L98 71.7815C103.833 70.9482 118.5 66.0815 114.5 57.2815C110.5 48.4815 97.5 51.2815 93.5 53.2815C100.5 47.5 96.8333 42.3544 90.5 42C101.5 31 96.5 17 84 17.982C77.5 17.982 69.7515 25.571 69.0551 29.3346M69.0551 29.3346C69.0384 29.4824 69.0752 29.1845 69.0551 29.3346ZM69.0551 29.3346C69.062 29.198 69.0254 29.4954 69.0551 29.3346Z" fill="#FFFFFF" stroke="black"/>
+        </svg>
+      </div> %>
+
+      <div data-svg-animator-target="container" class="relative w-full h-screen">
+        <!-- SVGs will be dynamically injected here -->
+      </div>
+
+      <%# <div data-svg-animator-target="container" class="relative w-full h-screen z-20">
+        <!-- SVGs will be dynamically injected here -->
+      </div> %>
+
+      <%= video_tag 'test.webm', id: 'myVideo', autoplay: true, loop: true, playsinline: true, muted: true, class: "w-full max-h-screen z-10" do %>
         Your browser does not support the video tag.
       <% end %>
 
@@ -22,7 +38,7 @@
         <% end %>
       </div>
       
-      <!-- Elements positioned at the right of the video -->
+      <!-- Part of Weather Information Overlay -->
       <div class="absolute top-0 w-full z-20 bg-black bg-opacity-50 p-4 flex items-center space-x-4 justify-end">
         <!-- Toggle Button -->
         <button data-controller="map-toggle" data-action="click->map-toggle#toggleMap" id="toggle-btn" class="text-white">Show Map</button>
@@ -42,7 +58,7 @@
         </button>
       </div>
 
-      <div class="absolute bottom-0 w-full h-1/3 z-20 bg-black bg-opacity-50 p-4" data-controller="scroll">
+      <div class="absolute bottom-0 w-full h-1/3 z-20 bg-black bg-opacity-50" data-controller="scroll">
         <% if @error_message.present? %>
           <div class="error-message">
             <p><%= @error_message %></p>
@@ -62,7 +78,7 @@
           </div>
 
         <% else %>
-          <p class="text-white">No weather data available for today.</p>
+          <p class="text-white">No weather data available for today</p>
         <% end %>
       </div>
     </div>

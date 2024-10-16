@@ -11,7 +11,7 @@ module WeatherHelper
       "Overcast"
     when 45
       "Fog"
-    when 45, 48
+    when 48
       "Depositing rime fog"
     when 51
       "Drizzle: Light"
@@ -49,7 +49,7 @@ module WeatherHelper
       "Rain showers: Violent"
     when 85
       "Snow showers: Slight"
-    when 85, 86
+    when 86
       "Snow showers: Heavy"
     when 95
       "Thunderstorm: Slight or moderate"
