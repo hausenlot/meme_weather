@@ -5,7 +5,7 @@
   </div>
 
   <div id="toggle-map-btn" class="text-white max-h-screen overflow-hidden">
-    <div class="relative max-w-screen max-h-screen flex items-center justify-center" data-controller="video svg-animator" data-weather-code-value="65<%#= @weather_code %>" data-cycle-code-value="0<%#= @cycle_code %>"> <!-- REMEMBER TO CHANGE THIS TO DYNAMIC VALUE-->
+    <div class="relative max-w-screen max-h-screen flex items-center justify-center" data-controller="video svg-animator" data-weather-code-value="<%= @weather_code %>" data-cycle-code-value="<%= @cycle_code %>">
 
       <!-- SKY BG + CELESTIAL BODY CONTAINER INSIDE-->
       <div class="absolute h-full w-full">
