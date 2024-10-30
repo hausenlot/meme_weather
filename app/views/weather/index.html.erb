@@ -4,29 +4,74 @@
     <div data-map-target="map" id="map" style="height: 500px; width: 100%;"></div>
   </div>
 
-  <div data-controller="weather" data-weather-code-value="<%= @weather_code %>"id="toggle-map-btn" class="text-white max-h-screen overflow-hidden">
-    <%# <div class="relative w-full" data-controller="video"> %>
-    <div class="relative max-w-screen max-h-screen flex items-center justify-center" data-controller="video svg-animator">
+  <div id="toggle-map-btn" class="text-white max-h-screen overflow-hidden">
+    <div class="relative max-w-screen max-h-screen flex items-center justify-center" data-controller="video svg-animator" data-weather-code-value="65<%#= @weather_code %>" data-cycle-code-value="0<%#= @cycle_code %>"> <!-- REMEMBER TO CHANGE THIS TO DYNAMIC VALUE-->
 
-      <%# <div id="layer_2" class="z-0 animate-move">
-        <svg width="300" height="300" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M51.8038 58.2347C52.2128 58.2547 52.1121 58.2882 52.5 58.2996C52.1322 58.2306 52.227 58.1969 51.8038 58.2347ZM51.8038 58.2347C40.2615 57.6709 20.8643 53.4833 25.5 33.7815C30.3 13.3815 48.5 10.9482 57 12.2815C61.6083 13.1044 70.3771 17.6654 69.0551 29.3346M51.8038 58.2347C49.1586 58.4712 45.8103 60.7988 46.5 65.2815C46.8333 66.1149 48 67.7815 50 67.7815L3.5 73.7815L59 71.7815L52 73.7815H118L98 71.7815C103.833 70.9482 118.5 66.0815 114.5 57.2815C110.5 48.4815 97.5 51.2815 93.5 53.2815C100.5 47.5 96.8333 42.3544 90.5 42C101.5 31 96.5 17 84 17.982C77.5 17.982 69.7515 25.571 69.0551 29.3346M69.0551 29.3346C69.0384 29.4824 69.0752 29.1845 69.0551 29.3346ZM69.0551 29.3346C69.062 29.198 69.0254 29.4954 69.0551 29.3346Z" fill="#FFFFFF" stroke="black"/>
+      <!-- SKY BG + CELESTIAL BODY CONTAINER INSIDE-->
+      <div class="absolute h-full w-full">
+        <svg data-svg-animator-target="cycleContainer" class="h-full w-full" viewBox="0 0 120 67" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M80.4196 43.2098C80.4196 44.4303 79.4303 45.4196 78.2098 45.4196C76.9894 45.4196 76 44.4303 76 43.2098C76 41.9894 76.9894 41 78.2098 41C79.4303 41 80.4196 41.9894 80.4196 43.2098Z" class="fill-current"/>
+          <path d="M78 41H117V45.42H78V41Z" class="fill-current"/>
+          <path d="M119.42 43.2098C119.42 44.4303 118.43 45.4196 117.21 45.4196C115.989 45.4196 115 44.4303 115 43.2098C115 41.9894 115.989 41 117.21 41C118.43 41 119.42 41.9894 119.42 43.2098Z" class="fill-current"/>
+          <path d="M71.4196 39.2098C71.4196 40.4303 70.4303 41.4196 69.2098 41.4196C67.9894 41.4196 67 40.4303 67 39.2098C67 37.9894 67.9894 37 69.2098 37C70.4303 37 71.4196 37.9894 71.4196 39.2098Z" class="fill-current"/>
+          <path d="M69 37H108V41.42H69V37Z" class="fill-current"/>
+          <path d="M110.42 39.2098C110.42 40.4303 109.43 41.4196 108.21 41.4196C106.989 41.4196 106 40.4303 106 39.2098C106 37.9894 106.989 37 108.21 37C109.43 37 110.42 37.9894 110.42 39.2098Z" class="fill-current"/>
+          <path d="M41.2098 35.2098C41.2098 36.4303 40.2204 37.4196 39 37.4196C37.7795 37.4196 36.7902 36.4303 36.7902 35.2098C36.7902 33.9894 37.7795 33 39 33C40.2204 33 41.2098 33.9894 41.2098 35.2098Z" class="fill-current"/>
+          <path d="M39 33H113V37.42L39 37.4196V33Z" class="fill-current"/>
+          <path d="M115.42 35.2098C115.42 36.4303 114.43 37.4196 113.21 37.4196C111.989 37.4196 111 36.4303 111 35.2098C111 33.9894 111.989 33 113.21 33C114.43 33 115.42 33.9894 115.42 35.2098Z" class="fill-current"/>
+          <path d="M23.4196 31.2098C23.4196 32.4303 22.4303 33.4196 21.2098 33.4196C19.9894 33.4196 19 32.4303 19 31.2098C19 29.9894 19.9894 29 21.2098 29C22.4303 29 23.4196 29.9894 23.4196 31.2098Z" class="fill-current"/>
+          <path d="M21 29H117V33.42H21V29Z" class="fill-current"/>
+          <path d="M119.42 31.2098C119.42 32.4303 118.43 33.4196 117.21 33.4196C115.989 33.4196 115 32.4303 115 31.2098C115 29.9894 115.989 29 117.21 29C118.43 29 119.42 29.9894 119.42 31.2098Z" class="fill-current"/>
+          <path d="M13.2098 27.2098C13.2098 28.4303 12.2204 29.4196 11 29.4196C9.77954 29.4196 8.79017 28.4303 8.79017 27.2098C8.79017 25.9894 9.77954 25 11 25C12.2204 25 13.2098 25.9894 13.2098 27.2098Z" class="fill-current"/>
+          <path d="M11 25H109V29.42L11 29.4196V25Z" class="fill-current"/>
+          <path d="M111.42 27.2098C111.42 28.4303 110.43 29.4196 109.21 29.4196C107.989 29.4196 107 28.4303 107 27.2098C107 25.9894 107.989 25 109.21 25C110.43 25 111.42 25.9894 111.42 27.2098Z" class="fill-current"/>
+          <path d="M8.41965 23.2098C8.41965 24.4303 7.43028 25.4196 6.20983 25.4196C4.98938 25.4196 4.00001 24.4303 4.00001 23.2098C4.00001 21.9894 4.98938 21 6.20983 21C7.43028 21 8.41965 21.9894 8.41965 23.2098Z" class="fill-current"/>
+          <path d="M6 21H96V25.42H6V21Z" class="fill-current"/>
+          <path d="M98.4196 23.2098C98.4196 24.4303 97.4303 25.4196 96.2098 25.4196C94.9894 25.4196 94 24.4303 94 23.2098C94 21.9894 94.9894 21 96.2098 21C97.4303 21 98.4196 21.9894 98.4196 23.2098Z" class="fill-current"/>
+          <path d="M19.4196 19.21C19.4196 20.4305 18.4303 21.42 17.2098 21.42C15.9894 21.42 15 20.4305 15 19.21C15 17.9894 15.9894 17 17.2098 17C18.4303 17 19.4196 17.9894 19.4196 19.21Z" class="fill-current"/>
+          <path d="M17 17H111V21.42H17V17Z" class="fill-current"/>
+          <path d="M113.42 19.21C113.42 20.4305 112.43 21.42 111.21 21.42C109.989 21.42 109 20.4305 109 19.21C109 17.9894 109.989 17 111.21 17C112.43 17 113.42 17.9894 113.42 19.21Z" class="fill-current"/>
+          <path d="M12.4196 11.21C12.4196 12.4305 11.4303 13.42 10.2098 13.42C8.98937 13.42 8 12.4305 8 11.21C8 9.98945 8.98937 9 10.2098 9C11.4303 9 12.4196 9.98945 12.4196 11.21Z" class="fill-current"/>
+          <path d="M10 9H104V13.42H10V9Z" class="fill-current"/>
+          <path d="M106.42 11.21C106.42 12.4305 105.43 13.42 104.21 13.42C102.989 13.42 102 12.4305 102 11.21C102 9.98945 102.989 9 104.21 9C105.43 9 106.42 9.98945 106.42 11.21Z" class="fill-current"/>
+          <path d="M25.4196 15.21C25.4196 16.4305 24.4303 17.42 23.2098 17.42C21.9894 17.42 21 16.4305 21 15.21C21 13.9895 21.9894 13 23.2098 13C24.4303 13 25.4196 13.9895 25.4196 15.21Z" class="fill-current"/>
+          <path d="M23 13H117V17.42H23V13Z" class="fill-current"/>
+          <path d="M119.42 15.21C119.42 16.4305 118.43 17.42 117.21 17.42C115.989 17.42 115 16.4305 115 15.21C115 13.9895 115.989 13 117.21 13C118.43 13 119.42 13.9895 119.42 15.21Z" class="fill-current"/>
+          <path d="M6.41964 7.21C6.41964 8.43055 5.43027 9.42 4.20982 9.42C2.98937 9.42 2 8.43055 2 7.21C2 5.98945 2.98937 5 4.20982 5C5.43027 5 6.41964 5.98945 6.41964 7.21Z" class="fill-current"/>
+          <path d="M4 5H98V9.42H4V5Z" class="fill-current"/>
+          <path d="M100.42 7.21C100.42 8.43055 99.4303 9.42 98.2098 9.42C96.9894 9.42 96 8.43055 96 7.21C96 5.98945 96.9894 5 98.2098 5C99.4303 5 100.42 5.98945 100.42 7.21Z" class="fill-current"/>
+          <path d="M11.4196 3.21C11.4196 4.43055 10.4303 5.42 9.20982 5.42C7.98937 5.42 7 4.43055 7 3.21C7 1.98945 7.98937 1 9.20982 1C10.4303 1 11.4196 1.98945 11.4196 3.21Z" class="fill-current"/>
+          <path d="M9 1H117V5.42H9V1Z" class="fill-current"/>
+          <path d="M119.42 3.21C119.42 4.43055 118.43 5.42 117.21 5.42C115.989 5.42 115 4.43055 115 3.21C115 1.98945 115.989 1 117.21 1C118.43 1 119.42 1.98945 119.42 3.21Z" class="fill-current"/>
         </svg>
-      </div> %>
-
-      <div data-svg-animator-target="container" class="relative w-full h-screen">
-        <!-- SVGs will be dynamically injected here -->
+        <div class="celestial-body"></div>
       </div>
+      
+      <svg class="lightning" preserveAspectRatio="none"></svg> <!-- VFX -->
+      <div class="fog-container"></div> <!-- VFX -->
 
-      <%# <div data-svg-animator-target="container" class="relative w-full h-screen z-20">
-        <!-- SVGs will be dynamically injected here -->
-      </div> %>
+      <div data-svg-animator-target="cloudContainer" class="absolute w-full h-screen"></div> <!-- ASSET -->
+      <div class="bg-overlay"></div> <!-- OVERLAY FOR WEATHERCODE WITH PRECIPITATION-->
 
-      <%= video_tag 'test.webm', id: 'myVideo', autoplay: true, loop: true, playsinline: true, muted: true, class: "w-full max-h-screen z-10" do %>
+      <div class="precipitation-container"></div> <!-- SFX -->
+
+      <!-- SCREAMING COWBOT LAYER 3-->
+      <%= video_tag 'test.webm', id: 'myVideo', autoplay: true, loop: true, playsinline: true, muted: true, class: "w-full max-h-screen z-10" do %> 
         Your browser does not support the video tag.
       <% end %>
 
-      <!-- Weather Information Overlay -->
+      <!-- HILL AND THE SEA LAYER 4 -->
+      <div class="absolute h-full w-full z-10">
+        <svg class="h-full w-full" viewBox="0 0 120 67" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <g clip-path="url(#clip0_31_2)">
+            <path d="M1 48H120V67L1 66.5V48Z" fill="#005EFF" stroke="#005EFF"/>
+            <path d="M84.5 67C68 36.5 43 38.0105 0 38.0105V67L84.5 67Z" fill="#00FF11" stroke="#00FF11"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- OVERLAYS ARE THE MOST ABSOLUTE ELEMENT Z-20 OR HIGHER FOR THINGS WITH BUTTONS/INTERACTION Z-10 IS LIKE DECORATION OR SOMETHING-->
+      <!-- TOP OVERLAY INFORMATION LIKE LOC, AND WEATHER STATS I GUESS -->
       <div class="absolute top-0 left-0 w-full z-10 bg-black bg-opacity-50 p-4">
         <% if @weather %>
           <p class="text-white"><%= @city %>, <%= @country %></p>
@@ -38,7 +83,7 @@
         <% end %>
       </div>
       
-      <!-- Part of Weather Information Overlay -->
+      <!-- BUTTONS -->
       <div class="absolute top-0 w-full z-20 bg-black bg-opacity-50 p-4 flex items-center space-x-4 justify-end">
         <!-- Toggle Button -->
         <button data-controller="map-toggle" data-action="click->map-toggle#toggleMap" id="toggle-btn" class="text-white">Show Map</button>
@@ -58,6 +103,7 @@
         </button>
       </div>
 
+      <!-- BOTTOM OVERLAY DAILY/WEEKLY FORECAST -->
       <div class="absolute bottom-0 w-full h-1/3 z-20 bg-black bg-opacity-50" data-controller="scroll">
         <% if @error_message.present? %>
           <div class="error-message">
@@ -65,7 +111,7 @@
           </div>
         <% elsif @today_forecast.present? %>
           <h3 class="text-white">Today's Hourly Forecast</h3>
-          <%= button_tag "Toggle Forecast Mode", type: 'button', onclick: "window.location='#{toggle_forecast_mode_path}'" %>
+          <%= button_tag "Toggle Forecast Mode", type: 'button', onclick: "window.location='#{toggle_forecast_mode_path(latitude: @latitude, longitude: @longitude)}'" %>
           <div class="relative">
             <button id="scrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 z-30">⬅️</button>
             <div id="forecastScrollContainer" class="weather-cards-container flex space-x-4 overflow-x-auto p-2 cursor-grab">

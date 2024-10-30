@@ -64,13 +64,17 @@ class WeatherController < ApplicationController
         latitude: @latitude,
         longitude: @longitude,
         current_weather: true,
+        daily: 'sunrise,sunset',
         timezone: 'auto'
       }
     })
-  
+    
     if weather_response.success?
+      @today_sunrise = weather_response['daily']['sunrise'].find { |time| time.start_with?(@current_day) }.split("T").last
+      @today_sunset = weather_response['daily']['sunset'].find { |time| time.start_with?(@current_day) }.split("T").last
       @weather = weather_response.parsed_response
       @weather_code = @weather.dig("current_weather", "weathercode") || 0
+      @cycle_code = @weather.dig("current_weather", "is_day") || 0
     else
       @weather_code = 0
     end
@@ -101,7 +105,6 @@ class WeatherController < ApplicationController
             }
           end
         end
-
         @today_forecast = today_forecast
 
       else
@@ -140,6 +143,6 @@ class WeatherController < ApplicationController
 
   def toggle_forecast_mode
     session[:mode] = session[:mode] == 'hourly' ? 'daily' : 'hourly'
-    redirect_to root_path
+    redirect_to root_path(latitude: params[:latitude], longitude: params[:longitude])
   end
 end

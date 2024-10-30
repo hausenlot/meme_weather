@@ -22,20 +22,242 @@
   color: black;
 }
 
-@keyframes moveLeftToRight {
-  0% {
-    transform: translateX(-100vw); /* Start off the screen on the left */
-  }
-  100% {
-    transform: translateX(100vw); /* Move off the screen on the right */
-  }
-}
-
+/* CLOUD MOVEMENT */
 .animate-move {
   position: absolute;
   animation: moveLeftToRight linear infinite;
 }
 
+.precipitation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* RAIN */
+hr {
+  width: 50px;
+  border-color: transparent;
+  border-right-color: rgba(255, 255, 255, 0.7);
+  border-right-width: 50px;
+  position: absolute;
+  bottom: 100%;
+  transform-origin: 100% 50%;
+  animation-name: rain;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.lightning {
+  position: absolute;
+  top: 0;
+  left: 10;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  animation: flash 3s infinite;
+}
+
+.bolt {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5000;
+  stroke-dashoffset: 5000;
+  animation: draw 0.5s linear forwards;
+}
+
+.fog-1 {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: url('/assets/fog-1.png');
+  background-size: cover;
+  opacity: 0.6;
+  animation: moveFog 13s linear infinite;
+}
+
+.fog-2 {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: url('/assets/fog-2.png');
+  background-size: cover;
+  opacity: 0.6;
+  animation: moveFog 31s linear infinite;
+}
+
+.frost-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: deposit 4s infinite;
+}
+
+.snow-particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* this one is a drizzle but i copied this from somewhere, tbh i can just reuse the other particle but ehh */
+.drizzle-drop {
+  position: absolute;
+  bottom: 100%;
+  width: 2px;
+  height: 10px;
+  background-color: rgba(200, 200, 255, 0.6);
+  animation: fall linear infinite;
+  filter: blur(0.5px);
+}
+
+/* density of drizzle-drop for JS purposes */
+.light {
+  width: 1px;
+  height: 7px;
+  opacity: 0.5;
+  animation-duration: 3s;
+}
+
+/* density of drizzle-drop for JS purposes */
+.dense {
+  width: 2px;
+  height: 12px;
+  opacity: 0.8;
+  animation-duration: 2s;
+}
+
+.bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hail-particle {
+  position: absolute;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.95),
+    rgba(220, 220, 255, 0.85)
+  );
+  border-radius: 50%;
+  box-shadow: 
+    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+    0 0 5px rgba(255, 255, 255, 0.3);
+  animation: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.sun {
+  background: #FFD700;
+  box-shadow: 0 0 100px #FFD700;
+}
+
+.moon {
+  background: #F4F4F4;
+  box-shadow: 0 0 100px #F4F4F4;
+}
+
+.celestial-body {
+  position: absolute;
+  width: 10%;
+  height: 20%;
+  border-radius: 50%;
+  transform-origin: center 140px;
+  left: 10%;
+  top: 10%;
+}
 
 
+/* ANIMATIONS */
+@keyframes moveLeftToRight {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
 
+@keyframes rain {
+  from {
+    transform: rotate(var(--rotation-angle)) translateX(0);
+  }
+  to {
+    transform: rotate(var(--rotation-angle)) translateX(calc(100vh + 20px));
+  }
+}
+
+@keyframes flash {
+  0%, 90%, 100% { opacity: 0; }
+  92%, 94%, 96%, 98% { opacity: 1; }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes moveFog {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes deposit {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(700px) translateX(20px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: rotate(var(--rotation-angle)) translateY(0) translateX(0);
+  }
+  100% {
+    transform: rotate(var(--rotation-angle)) translateY(100vh) translateX(20px);
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes bgflash {
+  0%, 100% { background: rgba(44, 62, 80, 0.8); }
+  50% { background: rgba(255, 255, 255, 0.2); }
+}
