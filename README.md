@@ -1,6 +1,5 @@
 ## Announcements
-- Announcement 1
-- Announcement 2
+This WebApp is Hosted in fly.io.
 
 ## Patch Notes
 - Version 1.0: Initial release
