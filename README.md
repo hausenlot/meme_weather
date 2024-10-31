@@ -49,3 +49,4 @@ This WebApp is Hosted in fly.io.
 - Added Celestial body
 - Added Overlay for darker sky
 - Configured for Deployment for Fly
+- Added Tooltip that fetches this readme's notes and issues.
