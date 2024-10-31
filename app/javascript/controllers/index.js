@@ -22,6 +22,9 @@ application.register("scroll", ScrollController)
 import SvgAnimatorController from "./svg_animator_controller"
 application.register("svg-animator", SvgAnimatorController)
 
+import TooltipController from "./tooltip_controller"
+application.register("tooltip", TooltipController)
+
 import VideoController from "./video_controller"
 application.register("video", VideoController)
 

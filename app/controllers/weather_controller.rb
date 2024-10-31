@@ -1,11 +1,12 @@
 class WeatherController < ApplicationController
   require 'date'
+  before_action :set_time_zone
 
   def index
     session[:mode] ||= 'hourly'
     @forecast_mode = session[:mode]
-    @current_hour = Time.now.strftime("%Y-%m-%dT%H:00")
-    @current_day = Time.now.strftime("%Y-%m-%d")
+    @current_hour = Time.current.strftime("%Y-%m-%dT%H:00")
+    @current_day = Time.current.strftime("%Y-%m-%d")
     
     if params[:latitude].present? && params[:longitude].present?
       @latitude = params[:latitude]
@@ -144,5 +145,11 @@ class WeatherController < ApplicationController
   def toggle_forecast_mode
     session[:mode] = session[:mode] == 'hourly' ? 'daily' : 'hourly'
     redirect_to root_path(latitude: params[:latitude], longitude: params[:longitude])
+  end
+
+  private
+
+  def set_time_zone
+    Time.zone = cookies[:timezone] || "UTC" # Default to UTC if no timezone is provided
   end
 end

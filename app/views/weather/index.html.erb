@@ -84,23 +84,43 @@
       </div>
       
       <!-- BUTTONS -->
-      <div class="absolute top-0 w-full z-20 bg-black bg-opacity-50 p-4 flex items-center space-x-4 justify-end">
-        <!-- Toggle Button -->
-        <button data-controller="map-toggle" data-action="click->map-toggle#toggleMap" id="toggle-btn" class="text-white">Show Map</button>
+      <div class="absolute top-0 w-full z-20 bg-black bg-opacity-50 p-4 flex items-center space-x-4">
+        <!-- Left section (can be empty for now) -->
+        <div class="flex-1"></div>
 
-        <!-- Weather Update Form -->
-        <%= form_with url: weather_update_coordinates_path, method: :post, local: true, class: "flex items-center" do |form| %>
-          <%= form.hidden_field :latitude, id: 'latitude' %>
-          <%= form.hidden_field :longitude, id: 'longitude' %>
-          <%= form.submit 'Update Coordinates', id: 'update-coordinates-btn', class: "text-white cursor-pointer" %>
-        <% end %>
+        <!-- Center section (Fetches from raw readme of the github repo) -->
+        <div class="flex items-center" data-controller="tooltip">
+          <button class="relative group text-white">
+            Hover me (readme from github repo)
+            <span 
+              data-tooltip-target="tooltip" 
+              class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-4 py-2 bg-gray-800 text-white text-sm rounded opacity-0 group-hover:opacity-100 shadow-md transition-opacity duration-200 pointer-events-none whitespace-normal max-w-lg text-left"
+              style="width: max-content; min-width: 150px;"
+            >
+              Loading...
+            </span>
+          </button>
+        </div>
 
-        <!-- City and Country Display -->
-        <button id="playButton" class="text-white">
-          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.43A4.985 4.985 0 0 1 17 12c0 1.126-.5 2.5-1.5 3.5m2.864-9.864A8.972 8.972 0 0 1 21 12c0 2.023-.5 4.5-2.5 6M7.8 7.5l2.56-2.133a1 1 0 0 1 1.64.768V12m0 4.5v1.365a1 1 0 0 1-1.64.768L6 15H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1m1-4 14 14"/>
-          </svg>
-        </button>
+        <!-- Right section (original buttons aligned right) -->
+        <div class="flex items-center space-x-4 justify-end flex-1">
+          <!-- Map Toggle button -->
+          <button data-controller="map-toggle" data-action="click->map-toggle#toggleMap" id="toggle-btn" class="text-white">Show Map</button>
+
+          <!-- Update Coordinate Button -->
+          <%= form_with url: weather_update_coordinates_path, method: :post, local: true, class: "flex items-center" do |form| %>
+            <%= form.hidden_field :latitude, id: 'latitude' %>
+            <%= form.hidden_field :longitude, id: 'longitude' %>
+            <%= form.submit 'Update Coordinates', id: 'update-coordinates-btn', class: "text-white cursor-pointer" %>
+          <% end %>
+
+          <!-- Mute button -->
+          <button id="playButton" class="text-white">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.43A4.985 4.985 0 0 1 17 12c0 1.126-.5 2.5-1.5 3.5m2.864-9.864A8.972 8.972 0 0 1 21 12c0 2.023-.5 4.5-2.5 6M7.8 7.5l2.56-2.133a1 1 0 0 1 1.64.768V12m0 4.5v1.365a1 1 0 0 1-1.64.768L6 15H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1m1-4 14 14"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- BOTTOM OVERLAY DAILY/WEEKLY FORECAST -->
@@ -137,6 +157,12 @@
     const highlightedCard = document.querySelector('.weather-card.highlight');
     if (highlightedCard) {
       highlightedCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
+
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!document.cookie.includes('timezone=')) {
+      document.cookie = `timezone=${timezone}; path=/`;
+      location.reload();
     }
   });
 </script>
